@@ -21,7 +21,7 @@ npx gulp
 
 - [ ] Move source file to any target folder:
 
-<img title="How to use magic hat" width="866" height="624" src="howto.gif">
+<img title="How to use magic hat" src="howto.gif">
 
 - [ ] Run web server if your need:
 
