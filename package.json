@@ -1,0 +1,25 @@
+{
+  "name": "magick-hat",
+  "version": "1.0.0",
+  "description": "Your magick assets converter",
+  "main": "gulpfile.js",
+  "scripts": {
+    "start": "tiny-server ./watch",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/open-tutorials/magick-hat.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/open-tutorials/magick-hat/issues"
+  },
+  "homepage": "https://github.com/open-tutorials/magick-hat#readme",
+  "dependencies": {
+    "gulp": "^4.0.2",
+    "tiny-server": "^1.1.1"
+  }
+}
