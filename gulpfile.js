@@ -85,7 +85,7 @@ function toJpeg(png) {
             try {
                 fs.renameSync(png, path.join(folders.backup, base));
             } catch (e) { }
-            identify(png, templates.jpeg);
+            identify(jpg, templates.jpeg);
         }
     });
 }
@@ -125,7 +125,7 @@ function toMp4(mov) {
             try {
                 fs.renameSync(png, path.join(folders.backup, base));
             } catch (e) { }
-            identify(gif, templates.mp4);
+            identify(mp4, templates.mp4);
         }
     });
 }
