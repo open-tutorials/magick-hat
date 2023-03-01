@@ -6,6 +6,8 @@ const fs = require('fs');
 const templates = {
     webp: (file, width, height) =>
         `<img class="cornered" title="?"\n    width="${width}" height="${height}" src="${file}">`,
+    jpeg: (file, width, height) =>
+        `<img class="cornered" title="?"\n    width="${width}" height="${height}" src="${file}">`,
     gif: (file, width, height) =>
         `<img class="cornered" title="?"\n    width="${width}" height="${height}" src="${file}">`,
     mp4: (file, width, height) =>
@@ -15,6 +17,7 @@ const templates = {
 const commands = {
     identify: file => `identify '${file}'`,
     toWebP: (src, dst) => `convert '${src}' '${dst}'`,
+    toJpeg: (src, dst) => `convert '${src}' -quality 80 '${dst}'`,
     toGif: (src, dst) => [
         `ffmpeg -i '${src}'`,
         '-vf "fps=10,split[s0][s1];[s0]palettegen=max_colors=32[p];[s1][p]paletteuse=dither=bayer"',
@@ -67,6 +70,26 @@ function toWebP(png) {
     });
 }
 
+function toJpeg(png) {
+    const { name, base } = path.parse(png);
+    const jpg = path.join('watch', name + '.jpg');
+    console.log('converting', png, 'to', jpg);
+
+    const cmd = commands.toJpeg(png, jpg);
+    console.log(cmd);
+
+    const convert = exec(cmd);
+    convert.addListener('close', code => {
+        console.log('done', code);
+        if (code === 0) {
+            try {
+                fs.renameSync(png, path.join(folders.backup, base));
+            } catch (e) { }
+            identify(png, templates.jpeg);
+        }
+    });
+}
+
 function toGif(mov) {
     const { name, base } = path.parse(mov);
     const gif = path.join('watch', name + '.gif');
@@ -113,6 +136,10 @@ exports.default = function () {
     watch(['watch/2webp/*.png']).on('add', (file) => {
         console.log('added file', file);
         toWebP(file);
+    });
+    watch(['watch/2jpeg/*.png']).on('add', (file) => {
+        console.log('added file', file);
+        toJpeg(file);
     });
     watch(['watch/2gif/*.mov']).on('add', (file) => {
         console.log('added file', file)
