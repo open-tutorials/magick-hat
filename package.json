@@ -4,7 +4,8 @@
   "description": "Your magick assets converter",
   "main": "gulpfile.js",
   "scripts": {
-    "start": "tiny-server ./watch",
+    "start": "gulp",
+    "listen": "tiny-server ./watch",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
